@@ -40,5 +40,6 @@ provisioner:
         "*":
           - core
     core.sls:
+      testing: true
       multicraft:
         total_servers: 6
