@@ -23,12 +23,18 @@ multicraft_service_file:
         [Install]
         WantedBy=multi-user.target
 
+{%- set testing = salt['pillar.get']('testing') %}
+{% if not testing %}
+
 # START MULTICRAFT SERVICE
 # After creating the Multicraft daemon service it won't be started automatically.  If the deployment of the service file
-# completed successfully, we should ensure it is started.
+# completed successfully, we should ensure it is started.  This state will not be run when testing, because Multicraft
+# will not be installed and so this state will always fail.
 multicraft_service:
   service.running:
     - name: multicraft
-    - enable: True
+    - enable: true
     - requires:
       - file: multicraft_service_file
+
+{% endif %}
