@@ -41,7 +41,7 @@ wings_config_dir:
 # provided by the Pterodactyl docs.
 wings_service_file:
   file.managed:
-    - name: /etc/systemd/system/multicraft.service
+    - name: /etc/systemd/system/wings.service
     - user: root
     - group: root
     - mode: 644
@@ -71,7 +71,7 @@ wings_service_file:
 # completed successfully, we should ensure it is started.
 wings_service:
   service.running:
-    - name: multicraft
+    - name: wings
     - enable: true
     - requires:
       - file: wings_service_file
