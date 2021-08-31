@@ -7,7 +7,7 @@
 # server to confirm everything is correctly configured but prevent generating a real TLS certificate.
 letsencrypt_cert:
   acme.cert:
-    - name: {{ grains['hostname'] }}
+    - name: {{ grains['id'] }}.dylanw.net
     - email: webmaster@dylanw.net
     - dns_plugin: cloudflare
     - dns_plugin_credentials: /root/.secrets/certbot/cloudflare.ini
