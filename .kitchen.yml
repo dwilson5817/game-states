@@ -30,16 +30,32 @@ provisioner:
     - Gemfile
     - Gemfile.lock
     - tests/
+  dependencies:
+    - name: docker
+      repo: git
+      source: https://gitlab.dylanwilson.dev/infrastructure/salt-formulas/docker-formula.git
+    - name: letsencrypt
+      repo: git
+      source: https://gitlab.dylanwilson.dev/infrastructure/salt-formulas/letsencrypt-formula.git
+    - name: web
+      repo: git
+      branch: main
+      source: https://gitlab.dylanwilson.dev/infrastructure/salt-states/web-states.git
   state_top:
     base:
-      "*":
+      '*':
         - game
+  pillars_from_files:
+    letsencrypt.sls: pillar/letsencrypt.sls
   pillars:
     top.sls:
       base:
-        "*":
-          - core
-    core.sls:
+        '*':
+          - game
+          - letsencrypt
+    game.sls:
       testing: true
-      multicraft:
-        total_servers: 6
+      letsencrypt:
+        use_package: true
+        pkgs:
+          - python3-certbot-dns-cloudflare
