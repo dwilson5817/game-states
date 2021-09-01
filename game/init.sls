@@ -6,4 +6,5 @@ include:
   - docker
   - letsencrypt.install
   - web.files
+  - .redis
   - .wings
